@@ -13,7 +13,7 @@ public:
 
     bool IsInitialized() const;
 
-    bool TestConnection(std::string& response) const;
+    bool GetLatestRelease(std::string& response) const;
 
 private:
     bool m_Initialized;

@@ -21,8 +21,8 @@ int Application::Run()
 
     std::string response;
 
-    bool httpOk =
-        engine.GetNetworkService().TestConnection(response);
+bool httpOk =
+    engine.GetNetworkService().GetLatestRelease(response);
 
     padConfigureInput(1, HidNpadStyleSet_NpadStandard);
 

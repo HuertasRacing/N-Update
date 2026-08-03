@@ -2,9 +2,30 @@
 
 #include <switch.h>
 
+SystemService::SystemService()
+    : m_Initialized(false)
+{
+}
+
 bool SystemService::Initialize()
 {
+    Result rc = setsysInitialize();
+
+    if (R_FAILED(rc))
+        return false;
+
+    m_Initialized = true;
+
     return true;
+}
+
+void SystemService::Shutdown()
+{
+    if (m_Initialized)
+    {
+        setsysExit();
+        m_Initialized = false;
+    }
 }
 
 bool SystemService::IsSdCardAvailable() const
@@ -24,12 +45,19 @@ bool SystemService::IsSdCardAvailable() const
 
 std::string SystemService::GetFirmwareVersion() const
 {
+    if (!m_Initialized)
+        return "SystemService not initialized";
+
     SetSysFirmwareVersion fw{};
 
-    if (R_SUCCEEDED(setsysGetFirmwareVersion(&fw)))
+    Result rc = setsysGetFirmwareVersion(&fw);
+
+    if (R_FAILED(rc))
     {
-        return std::string(fw.display_version);
+        char buffer[32];
+        snprintf(buffer, sizeof(buffer), "0x%08X", rc);
+        return buffer;
     }
 
-    return "Unknown";
+    return std::string(fw.display_version);
 }
