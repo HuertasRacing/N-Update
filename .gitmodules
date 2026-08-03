@@ -1,3 +1,6 @@
 [submodule "third_party/borealis"]
 	path = third_party/borealis
 	url = https://github.com/natinusala/borealis.git
+[submodule "third_party/json"]
+	path = third_party/json
+	url = https://github.com/nlohmann/json.git
