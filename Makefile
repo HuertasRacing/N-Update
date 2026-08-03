@@ -43,8 +43,9 @@ SOURCES := \
     source \
     source/app \
     source/core \
-    source/installer \
+    source/models \
     source/network \
+    source/installer \
     source/storage \
     source/ui \
     source/utils
