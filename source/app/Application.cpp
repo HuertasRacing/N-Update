@@ -3,15 +3,15 @@
 #include <switch.h>
 #include <cstdio>
 
-#include "../core/UpdateManager.hpp"
+#include "../core/Engine.hpp"
 
 int Application::Run()
 {
     consoleInit(nullptr);
 
-    UpdateManager manager;
+    Engine engine;
 
-    if (!manager.Initialize())
+    if (!engine.Initialize())
     {
         consoleExit(nullptr);
         return -1;
@@ -26,7 +26,6 @@ int Application::Run()
     printf("          N-Update\n");
     printf("=================================\n\n");
 
-    printf("Bienvenido a N-Update\n\n");
     printf("Pulsa + para salir.\n");
 
     while (appletMainLoop())
@@ -38,10 +37,12 @@ int Application::Run()
         if (keys & HidNpadButton_Plus)
             break;
 
+        engine.Run();
+
         consoleUpdate(nullptr);
     }
 
-    manager.Shutdown();
+    engine.Shutdown();
 
     consoleExit(nullptr);
 
