@@ -31,5 +31,5 @@ std::string SystemService::GetFirmwareVersion() const
         return std::string(fw.display_version);
     }
 
-    return "Desconocido";
+    return "Unknown";
 }
