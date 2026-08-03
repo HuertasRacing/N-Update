@@ -1,5 +1,10 @@
 #include "NetworkService.hpp"
 
+NetworkService::NetworkService()
+    : m_Initialized(false)
+{
+}
+
 bool NetworkService::Initialize()
 {
     m_Initialized = true;

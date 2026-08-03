@@ -3,6 +3,8 @@
 class NetworkService
 {
 public:
+    NetworkService();
+
     bool Initialize();
 
     void Shutdown();
@@ -10,5 +12,5 @@ public:
     bool IsInitialized() const;
 
 private:
-    bool m_Initialized = false;
+    bool m_Initialized;
 };
