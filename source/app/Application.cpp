@@ -22,7 +22,10 @@ int Application::Run()
     std::string response;
 
 bool httpOk =
-    engine.GetNetworkService().GetLatestRelease(response);
+    engine.GetNetworkService().GetLatestRelease(
+    "HuertasRacing",
+    "N-Update",
+    response);
 
     padConfigureInput(1, HidNpadStyleSet_NpadStandard);
 

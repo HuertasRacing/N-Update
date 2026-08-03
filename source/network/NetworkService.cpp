@@ -1,5 +1,5 @@
 #include "NetworkService.hpp"
-#include "HttpClient.hpp"
+#include "GitHubClient.hpp"
 
 #include <switch.h>
 
@@ -16,7 +16,6 @@ bool NetworkService::Initialize()
         return false;
 
     m_Initialized = true;
-
     return true;
 }
 
@@ -34,14 +33,18 @@ bool NetworkService::IsInitialized() const
     return m_Initialized;
 }
 
-bool NetworkService::GetLatestRelease(std::string& response) const
+bool NetworkService::GetLatestRelease(
+    const std::string& owner,
+    const std::string& repository,
+    std::string& response) const
 {
     if (!m_Initialized)
         return false;
 
-    HttpClient client;
+    GitHubClient github;
 
-    return client.Get(
-        "https://api.github.com/repos/HuertasRacing/N-Update/releases/latest",
+    return github.GetLatestReleaseJson(
+        owner,
+        repository,
         response);
 }

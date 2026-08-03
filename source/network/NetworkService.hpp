@@ -13,7 +13,10 @@ public:
 
     bool IsInitialized() const;
 
-    bool GetLatestRelease(std::string& response) const;
+    bool GetLatestRelease(
+        const std::string& owner,
+        const std::string& repository,
+        std::string& response) const;
 
 private:
     bool m_Initialized;
