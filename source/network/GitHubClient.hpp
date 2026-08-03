@@ -7,10 +7,10 @@
 class GitHubClient
 {
 public:
-    bool GetLatestReleaseJson(
+    bool GetLatestRelease(
         const std::string& owner,
         const std::string& repository,
-        std::string& json) const;
+        std::string& response) const;
 
     bool ParseRelease(
         const std::string& json,

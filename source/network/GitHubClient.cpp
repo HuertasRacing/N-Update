@@ -6,7 +6,7 @@
 
 using json = nlohmann::json;
 
-bool GitHubClient::GetLatestReleaseJson(
+bool GitHubClient::GetLatestRelease(
     const std::string& owner,
     const std::string& repository,
     std::string& response) const
@@ -41,15 +41,17 @@ bool GitHubClient::ParseRelease(
 
     if (j.contains("assets"))
     {
-        for (const auto& asset : j["assets"])
+        for (const auto& item : j["assets"])
         {
-            GitHubAsset a;
+            GitHubAsset asset;
 
-            a.name = asset.value("name", "");
-            a.downloadUrl = asset.value("browser_download_url", "");
-            a.size = asset.value("size", 0ULL);
+            asset.name = item.value("name", "");
+            asset.downloadUrl =
+                item.value("browser_download_url", "");
+            asset.size =
+                item.value("size", 0ULL);
 
-            release.assets.push_back(a);
+            release.assets.push_back(asset);
         }
     }
 

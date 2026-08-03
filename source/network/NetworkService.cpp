@@ -1,4 +1,5 @@
 #include "NetworkService.hpp"
+
 #include "GitHubClient.hpp"
 
 #include <switch.h>
@@ -16,6 +17,7 @@ bool NetworkService::Initialize()
         return false;
 
     m_Initialized = true;
+
     return true;
 }
 
@@ -43,7 +45,7 @@ bool NetworkService::GetLatestRelease(
 
     GitHubClient github;
 
-    return github.GetLatestReleaseJson(
+    return github.GetLatestRelease(
         owner,
         repository,
         response);
