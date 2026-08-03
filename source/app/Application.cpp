@@ -1,6 +1,7 @@
 #include "Application.hpp"
 
 #include <cstdio>
+#include <string>
 #include <switch.h>
 
 #include "../core/Engine.hpp"
@@ -18,6 +19,11 @@ int Application::Run()
         return -1;
     }
 
+    std::string response;
+
+    bool httpOk =
+        engine.GetNetworkService().TestConnection(response);
+
     padConfigureInput(1, HidNpadStyleSet_NpadStandard);
 
     PadState pad;
@@ -25,15 +31,24 @@ int Application::Run()
 
     printf("=================================\n");
     printf("%s %s\n",
-        Version::GetName().c_str(),
-        Version::GetVersion().c_str());
+           Version::GetName().c_str(),
+           Version::GetVersion().c_str());
+
     printf("=================================\n\n");
 
     printf("SD Card  : %s\n",
-        engine.GetSystemService().IsSdCardAvailable() ? "OK" : "ERROR");
+           engine.GetSystemService().IsSdCardAvailable() ? "OK" : "ERROR");
 
     printf("Firmware : %s\n",
-        engine.GetSystemService().GetFirmwareVersion().c_str());
+           engine.GetSystemService().GetFirmwareVersion().c_str());
+
+    printf("HTTP     : %s\n\n",
+           httpOk ? "OK" : "ERROR");
+
+    if (httpOk)
+    {
+        printf("%.300s\n", response.c_str());
+    }
 
     printf("\nPulsa + para salir.\n");
 
@@ -41,12 +56,8 @@ int Application::Run()
     {
         padUpdate(&pad);
 
-        u64 keys = padGetButtonsDown(&pad);
-
-        if (keys & HidNpadButton_Plus)
+        if (padGetButtonsDown(&pad) & HidNpadButton_Plus)
             break;
-
-        engine.Run();
 
         consoleUpdate(nullptr);
     }

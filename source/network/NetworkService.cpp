@@ -1,4 +1,5 @@
 #include "NetworkService.hpp"
+#include "HttpClient.hpp"
 
 NetworkService::NetworkService()
     : m_Initialized(false)
@@ -19,4 +20,13 @@ void NetworkService::Shutdown()
 bool NetworkService::IsInitialized() const
 {
     return m_Initialized;
+}
+
+bool NetworkService::TestConnection(std::string& response) const
+{
+    HttpClient client;
+
+    return client.Get(
+        "https://httpbin.org/get",
+        response);
 }
