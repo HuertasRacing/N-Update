@@ -29,8 +29,11 @@ int Application::Run()
         Version::GetVersion().c_str());
     printf("=================================\n\n");
 
-    printf("SD Card : %s\n",
+    printf("SD Card  : %s\n",
         engine.GetSystemService().IsSdCardAvailable() ? "OK" : "ERROR");
+
+    printf("Firmware : %s\n",
+        engine.GetSystemService().GetFirmwareVersion().c_str());
 
     printf("\nPulsa + para salir.\n");
 

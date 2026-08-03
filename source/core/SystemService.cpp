@@ -21,3 +21,15 @@ bool SystemService::IsSdCardAvailable() const
 
     return false;
 }
+
+std::string SystemService::GetFirmwareVersion() const
+{
+    SetSysFirmwareVersion fw{};
+
+    if (R_SUCCEEDED(setsysGetFirmwareVersion(&fw)))
+    {
+        return std::string(fw.display_version);
+    }
+
+    return "Desconocido";
+}
