@@ -1,19 +1,26 @@
 #include "Engine.hpp"
-#include "UpdateManager.hpp"
-
-UpdateManager g_UpdateManager;
 
 bool Engine::Initialize()
 {
-    return g_UpdateManager.Initialize();
+    if (!m_SystemService.Initialize())
+        return false;
+
+    if (!m_UpdateManager.Initialize())
+        return false;
+
+    return true;
 }
 
 void Engine::Run()
 {
-    // Aquí irá la lógica principal más adelante.
 }
 
 void Engine::Shutdown()
 {
-    g_UpdateManager.Shutdown();
+    m_UpdateManager.Shutdown();
+}
+
+const SystemService& Engine::GetSystemService() const
+{
+    return m_SystemService;
 }

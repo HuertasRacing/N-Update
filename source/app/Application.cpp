@@ -1,9 +1,10 @@
 #include "Application.hpp"
 
-#include <switch.h>
 #include <cstdio>
+#include <switch.h>
 
 #include "../core/Engine.hpp"
+#include "../core/Version.hpp"
 
 int Application::Run()
 {
@@ -23,10 +24,15 @@ int Application::Run()
     padInitializeDefault(&pad);
 
     printf("=================================\n");
-    printf("          N-Update\n");
+    printf("%s %s\n",
+        Version::GetName().c_str(),
+        Version::GetVersion().c_str());
     printf("=================================\n\n");
 
-    printf("Pulsa + para salir.\n");
+    printf("SD Card : %s\n",
+        engine.GetSystemService().IsSdCardAvailable() ? "OK" : "ERROR");
+
+    printf("\nPulsa + para salir.\n");
 
     while (appletMainLoop())
     {

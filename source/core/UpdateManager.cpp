@@ -1,24 +1,12 @@
 #include "UpdateManager.hpp"
-#include "Version.hpp"
-
-#include <cstdio>
 
 bool UpdateManager::Initialize()
 {
-    printf("=================================\n");
-    printf("%s %s\n",
-           Version::GetName().c_str(),
-           Version::GetVersion().c_str());
-
-    printf("Autor: %s\n",
-           Version::GetAuthor().c_str());
-
-    printf("=================================\n\n");
-
+    // Aquí inicializaremos los distintos servicios del programa.
     return true;
 }
 
 void UpdateManager::Shutdown()
 {
-    printf("Cerrando N-Update...\n");
+    // Aquí liberaremos los recursos utilizados por los servicios.
 }
