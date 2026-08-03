@@ -3,12 +3,20 @@
 #include <switch.h>
 #include <cstdio>
 
+#include "../core/UpdateManager.hpp"
+
 int Application::Run()
 {
-    // Inicializar la consola
     consoleInit(nullptr);
 
-    // Configurar entrada del mando
+    UpdateManager manager;
+
+    if (!manager.Initialize())
+    {
+        consoleExit(nullptr);
+        return -1;
+    }
+
     padConfigureInput(1, HidNpadStyleSet_NpadStandard);
 
     PadState pad;
@@ -32,6 +40,8 @@ int Application::Run()
 
         consoleUpdate(nullptr);
     }
+
+    manager.Shutdown();
 
     consoleExit(nullptr);
 
